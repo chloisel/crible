@@ -20,13 +20,18 @@ import sqlite3
 import os
 from datetime import datetime
 
+PATH_PROJECT = "/home/charles-ubuntu/Crible/Automation/"
+
 # ──────────────────────────────────────────────
 # FICHIERS DE BASE DE DONNÉES
 # ──────────────────────────────────────────────
-DB_SOIREE = "double_skunk_soiree.db"
-DB_SAISON = "double_skunk_saison.db"
-DB_A_VIE  = "double_skunk_a_vie.db"
-DB_PROFILE = "double_skunk_profile.db"
+DB_DIR = f"{PATH_PROJECT}DB"
+os.makedirs(DB_DIR, exist_ok=True)
+
+DB_SOIREE  = os.path.join(DB_DIR, "double_skunk_soiree.db")
+DB_SAISON  = os.path.join(DB_DIR, "double_skunk_saison.db")
+DB_A_VIE   = os.path.join(DB_DIR, "double_skunk_a_vie.db")
+DB_PROFILE = os.path.join(DB_DIR, "double_skunk_profile.db")
 
 
 # ──────────────────────────────────────────────
