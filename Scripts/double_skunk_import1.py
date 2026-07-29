@@ -20,10 +20,12 @@ import sqlite3
 import os
 from datetime import datetime
 
+PATH_PROJECT = "/home/charles-ubuntu/Crible/Automation/"
+
 # ──────────────────────────────────────────────
 # FICHIERS DE BASE DE DONNÉES
 # ──────────────────────────────────────────────
-DB_DIR = "/home/charles-ubuntu/Crible/Automation/DB"
+DB_DIR = f"{PATH_PROJECT}DB"
 os.makedirs(DB_DIR, exist_ok=True)
 
 DB_SOIREE  = os.path.join(DB_DIR, "double_skunk_soiree.db")
