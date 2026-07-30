@@ -37,6 +37,30 @@ DB_PROFILE = os.path.join(DB_DIR, "double_skunk_profile.db")
 # ──────────────────────────────────────────────
 # CRÉATION DES TABLES
 # ──────────────────────────────────────────────
+
+def init_db_profile(conn):
+    c = conn.cursor()
+
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS profiles (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            prenom          TEXT,
+            nom             TEXT,
+            surnom          TEXT,    
+            anciennete      INTEGER,      
+            date_entree     TEXT,
+            naissance       TEXT,
+            tel_maison      TEXT,
+            cellulaire      TEXT,
+            adresse         TEXT,
+            courriel        TEXT,
+            notes           TEXT,
+            actif           INTEGER DEFAULT 1,
+            derniere_maj    TEXT
+        )
+    """)
+
+
 def init_db_soiree(conn):
     c = conn.cursor()
 
@@ -342,6 +366,12 @@ def main():
 
     afficher_rapport(data, parties, presence)
 
+    # --- DB PROFILE ---
+    print(f"👤 Base profile → {DB_PROFILE}")
+    conn_p = sqlite3.connect(DB_PROFILE)
+    init_db_profile(conn_p)
+    conn_p.close()
+
     # ── DB SOIRÉE ──
     print(f"📋 Base soirée  → {DB_SOIREE}")
     conn_s = sqlite3.connect(DB_SOIREE)
@@ -370,6 +400,7 @@ def main():
 
     print()
     print("✅ Importation complète !")
+    print(f"   {DB_PROFILE} — profile joueur")
     print(f"   {DB_SOIREE}  — détails de la soirée")
     print(f"   {DB_SAISON}  — cumul saison")
     print(f"   {DB_A_VIE}    — cumul à vie")
