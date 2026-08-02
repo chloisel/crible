@@ -5,13 +5,16 @@
   "soireeVie": "701",
   "saison": "26-27",
   "date": "2026-08-07",
-  "endroit": "Charles",
-  "evenements": [],
+  "endroit": "Nouvelle place",
+  "evenements": [
+    "Main 24 ‐ Charles",
+    "Cribe de 16 -Michel"
+  ],
   "prochaineRencontre": {
-    "chez": "Charles",
+    "chez": "Michel et Carole",
     "date": "2026-08-07"
   },
-  "exportedAt": "2026-07-30T16:54:45.902Z",
+  "exportedAt": "2026-08-02T18:17:53.226Z",
   "presence": [
     {
       "nom": "Carole",

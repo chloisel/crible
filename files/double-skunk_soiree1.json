@@ -32,7 +32,7 @@
       "numero": "1"
     },
     {
-      "nom": "Julie",
+      "nom": "Louise",
       "numero": "4"
     },
     {
@@ -64,8 +64,8 @@
       "nb": "Carole",
       "pts1": "121",
       "pts2": "90",
-      "nc": "",
-      "nd": "",
+      "nc": "Michel",
+      "nd": "Frank",
       "numero": 3
     },
     {
@@ -74,7 +74,7 @@
       "pts1": "121",
       "pts2": "110",
       "nc": "Charles",
-      "nd": "Julie",
+      "nd": "Louise",
       "numero": 4
     },
     {
