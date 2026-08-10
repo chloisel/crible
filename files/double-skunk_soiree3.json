@@ -1,0 +1,102 @@
+﻿{
+  "ligue": "Ligue de Crible Double-SKUNK",
+  "fondee": "1967-11-05",
+  "soireeNum": "3",
+  "soireeVie": "702",
+  "saison": "26-27",
+  "date": "2026-08-21",
+  "endroit": "Carole Et Michel",
+  "evenements": [
+    "Main de 29 - René"
+  ],
+  "prochaineRencontre": {
+    "chez": "Line Et Frank",
+    "date": "2026-08-28"
+  },
+  "exportedAt": "2026-08-04T18:20:48.716Z",
+  "presence": [
+    {
+      "nom": "Carole",
+      "numero": "1"
+    },
+    {
+      "nom": "Charles",
+      "numero": "2"
+    },
+    {
+      "nom": "Fernand",
+      "numero": "16"
+    },
+    {
+      "nom": "Frank",
+      "numero": "15"
+    },
+    {
+      "nom": "Jocelyne",
+      "numero": "10"
+    },
+    {
+      "nom": "Josée",
+      "numero": "11"
+    },
+    {
+      "nom": "Line",
+      "numero": "12"
+    },
+    {
+      "nom": "Louise",
+      "numero": "13"
+    },
+    {
+      "nom": "René",
+      "numero": "18"
+    }
+  ],
+  "parties": [
+    {
+      "na": "Carole",
+      "nb": "Charles",
+      "pts1": "121",
+      "pts2": "110",
+      "nc": "Fernand",
+      "nd": "Frank",
+      "numero": 1
+    },
+    {
+      "na": "Frank",
+      "nb": "Jocelyne",
+      "pts1": "111",
+      "pts2": "121",
+      "nc": "Josée",
+      "nd": "Line",
+      "numero": 2
+    },
+    {
+      "na": "René",
+      "nb": "Carole",
+      "pts1": "121",
+      "pts2": "89",
+      "nc": "Charles",
+      "nd": "Fernand",
+      "numero": 3
+    },
+    {
+      "na": "Louise",
+      "nb": "Frank",
+      "pts1": "101",
+      "pts2": "121",
+      "nc": "Josée",
+      "nd": "Line",
+      "numero": 4
+    },
+    {
+      "na": "Fernand",
+      "nb": "Charles",
+      "pts1": "121",
+      "pts2": "96",
+      "nc": "René",
+      "nd": "Louise",
+      "numero": 5
+    }
+  ]
+}
