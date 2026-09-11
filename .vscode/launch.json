@@ -6,12 +6,20 @@
     "configurations": [
 
         {
-            "name": "Python Debugger: Crible",
+            "name": "Crible",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": "/home/charles-ubuntu/Crible/Automation/files/double-skunk_soiree.json"
+            "args": "/home/charles-ubuntu/Crible/Automation/files/double-skunk_soiree2.json"
+        },
+         {
+            "name": "Generate_Report",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": "2026-09-04"
         }
     ]
 }

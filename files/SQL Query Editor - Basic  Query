@@ -1,0 +1,28 @@
+-- Welcome to SQL Query Editor
+-- Here are some example queries to get you started:
+
+-- Basic SELECT query
+SELECT * FROM your_table LIMIT 10;
+
+-- Query with WHERE clause
+SELECT column1, column2 
+FROM your_table 
+WHERE column1 = 'value'
+ORDER BY column2 DESC;
+
+-- Count records
+SELECT COUNT(*) as total_records 
+FROM your_table;
+
+-- INSERT example
+INSERT INTO your_table (column1, column2) 
+VALUES ('value1', 'value2');
+
+-- UPDATE example
+UPDATE your_table 
+SET column1 = 'new_value' 
+WHERE column2 = 'condition';
+
+-- DELETE example
+DELETE FROM your_table 
+WHERE column1 = 'value';

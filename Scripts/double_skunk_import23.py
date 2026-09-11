@@ -51,8 +51,9 @@ MONTANT_PRESENCES = 11.00   # $ par présence
 HOTE_MONTANT      = 8.00   # $ par présence, versé à l'hôte (sort de la caisse)
 FOND_MONTANT      = 3.00   # $ par présence, ajouté au fond
 MONTANT_SKUNKS    = 1.0   # $ par skunk, ajouté au fond
-MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
-TEXT_DEPENSE      = "Aucune"  # description des dépenses de la soirée
+MONTANT_DEPENSES  = 10.00   # $ de dépenses pour la soirée
+TEXT_DEPENSE      = "Jeux de cartes"  # description des dépenses de la soirée
+
 
 # ──────────────────────────────────────────────
 # CRÉATION DES TABLES
@@ -1114,10 +1115,9 @@ def maj_stats_saison(conn, saison, soiree_num, date, nb_skunks, texte_skunks, mo
 # ──────────────────────────────────────────────
 def maj_finances(conn, soiree_id, saison, nb_presences, nb_skunks):
     """Calcule et insère la ligne finances de la soirée dans double_skunk_ligue.db.
-    Formule : en_caisse_fin = en_caisse_départ + ajout_fond - dépenses
-    (ajout_fond = fond + skunks ; skunks = nombre de skunks x 2 x MONTANT_SKUNKS)
-    montant_presences et hote_montant sont calculés/stockés à titre informatif
-    seulement — ils n'entrent pas dans le calcul de l'encaisse."""
+    Formule : en_caisse_fin = en_caisse_départ + présences - hôte + fond + skunks - dépenses
+    (skunks = nombre de skunks x 2 x MONTANT_SKUNKS)
+    (ajout_fond = fond + skunks, à titre informatif)."""
     c = conn.cursor()
 
     c.execute("SELECT en_caisse_fin FROM finances ORDER BY id DESC LIMIT 1")
@@ -1131,7 +1131,10 @@ def maj_finances(conn, soiree_id, saison, nb_presences, nb_skunks):
     ajout_fond = round(fond_montant + montant_skunks, 2)
     montant_depenses = MONTANT_DEPENSES
 
-    en_caisse_fin = round(en_caisse_depart + ajout_fond - montant_depenses, 2)
+    en_caisse_fin = round(
+        en_caisse_depart + montant_presences - hote_montant + fond_montant + montant_skunks - montant_depenses,
+        2
+    )
 
     c.execute("""
         INSERT INTO finances

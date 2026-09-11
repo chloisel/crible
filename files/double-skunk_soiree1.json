@@ -3,6 +3,7 @@
   "fondee": "1967-11-05",
   "soireeNum": "1",
   "soireeVie": "700",
+  "saison": "26-27",
   "date": "2026-07-04",
   "endroit": "Test endroit",
   "evenements": [
@@ -32,7 +33,7 @@
       "numero": "1"
     },
     {
-      "nom": "Julie",
+      "nom": "Louise",
       "numero": "4"
     },
     {
@@ -64,8 +65,8 @@
       "nb": "Carole",
       "pts1": "121",
       "pts2": "90",
-      "nc": "",
-      "nd": "",
+      "nc": "Michel",
+      "nd": "Frank",
       "numero": 3
     },
     {
@@ -74,7 +75,7 @@
       "pts1": "121",
       "pts2": "110",
       "nc": "Charles",
-      "nd": "Julie",
+      "nd": "Louise",
       "numero": 4
     },
     {
