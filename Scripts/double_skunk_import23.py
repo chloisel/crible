@@ -45,6 +45,17 @@ DB_LIGUE   = os.path.join(DB_DIR, "double_skunk_ligue.db")
 
 
 # ──────────────────────────────────────────────
+# CONSTANTES FINANCIÈRES (à ajuster au besoin durant la saison)
+# ──────────────────────────────────────────────
+MONTANT_PRESENCES = 11.00   # $ par présence
+HOTE_MONTANT      = 8.00   # $ par présence, versé à l'hôte (sort de la caisse)
+FOND_MONTANT      = 3.00   # $ par présence, ajouté au fond
+MONTANT_SKUNKS    = 1.0   # $ par skunk, ajouté au fond
+MONTANT_DEPENSES  = 10.00   # $ de dépenses pour la soirée
+TEXT_DEPENSE      = "Jeux de cartes"  # description des dépenses de la soirée
+
+
+# ──────────────────────────────────────────────
 # CRÉATION DES TABLES
 # ──────────────────────────────────────────────
 
@@ -1102,6 +1113,41 @@ def maj_stats_saison(conn, saison, soiree_num, date, nb_skunks, texte_skunks, mo
 # ──────────────────────────────────────────────
 # MAIN
 # ──────────────────────────────────────────────
+def maj_finances(conn, soiree_id, saison, nb_presences, nb_skunks):
+    """Calcule et insère la ligne finances de la soirée dans double_skunk_ligue.db.
+    Formule : en_caisse_fin = en_caisse_départ + présences - hôte + fond + skunks - dépenses
+    (skunks = nombre de skunks x 2 x MONTANT_SKUNKS)
+    (ajout_fond = fond + skunks, à titre informatif)."""
+    c = conn.cursor()
+
+    c.execute("SELECT en_caisse_fin FROM finances ORDER BY id DESC LIMIT 1")
+    row = c.fetchone()
+    en_caisse_depart = row[0] if row and row[0] is not None else 0.0
+
+    montant_presences = round(nb_presences * MONTANT_PRESENCES, 2)
+    hote_montant = round(nb_presences * HOTE_MONTANT, 2)
+    fond_montant = round(nb_presences * FOND_MONTANT, 2)
+    montant_skunks = round((nb_skunks * 2) * MONTANT_SKUNKS, 2)
+    ajout_fond = round(fond_montant + montant_skunks, 2)
+    montant_depenses = MONTANT_DEPENSES
+
+    en_caisse_fin = round(
+        en_caisse_depart + montant_presences - hote_montant + fond_montant + montant_skunks - montant_depenses,
+        2
+    )
+
+    c.execute("""
+        INSERT INTO finances
+            (id_soiree, saison, en_caisse_départ, en_caisse_fin, nbr_presences, montant_presences,
+             hote_montant, fond_montant, nbr_skunks, montant_skunks, ajout_fond, montant_depenses, text_depenses)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (soiree_id, saison, en_caisse_depart, en_caisse_fin, nb_presences, montant_presences,
+          hote_montant, fond_montant, nb_skunks, montant_skunks, ajout_fond, montant_depenses, TEXT_DEPENSE))
+
+    conn.commit()
+    print(f"  💰 Finances mises à jour — encaisse : {en_caisse_depart:.2f} $ → {en_caisse_fin:.2f} $")
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python double_skunk_import.py <fichier.json>")
@@ -1128,7 +1174,6 @@ def main():
     print(f"👤 Base ligue   → {DB_LIGUE}")
     conn_l = sqlite3.connect(DB_LIGUE)
     init_db_ligue(conn_l)
-    conn_l.close()
 
     # Recherche prenom/nom par surnom (utilisée par toutes les autres DB)
     lookup = charger_lookup_profiles()
@@ -1140,6 +1185,10 @@ def main():
     soiree_id, soiree_num, soiree_vie_num, saison, date, endroit, parties, presence = \
         importer_soiree(data, conn_s, lookup)
     conn_s.close()
+
+    # Finances de la soirée (DB LIGUE)
+    maj_finances(conn_l, soiree_id, saison, nb_presences=len(presence), nb_skunks=compter_skunks_soiree(parties))
+    conn_l.close()
 
     # ── DB SAISON ──
     print(f"📊 Base saison  → {DB_SAISON}")

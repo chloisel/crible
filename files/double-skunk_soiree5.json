@@ -1,0 +1,318 @@
+﻿{
+  "ligue": "Ligue de Crible Double-SKUNK",
+  "fondee": "1967-11-05",
+  "soireeNum": "5",
+  "soireeVie": "704",
+  "saison": "26-27",
+  "date": "2026-09-04",
+  "endroit": "Josée",
+  "evenements": [],
+  "prochaineRencontre": {
+    "chez": "",
+    "date": ""
+  },
+  "exportedAt": "2026-08-19T12:57:30.250Z",
+  "presence": [
+    {
+      "nom": "Charles",
+      "numero": "7"
+    },
+    {
+      "nom": "Fernand",
+      "numero": "10"
+    },
+    {
+      "nom": "Frank",
+      "numero": "5"
+    },
+    {
+      "nom": "Jocelyne",
+      "numero": "16"
+    },
+    {
+      "nom": "Josée",
+      "numero": "6"
+    },
+    {
+      "nom": "Line",
+      "numero": "11"
+    },
+    {
+      "nom": "Louise",
+      "numero": "3"
+    },
+    {
+      "nom": "Manon",
+      "numero": "4"
+    },
+    {
+      "nom": "Marc-André",
+      "numero": "13"
+    },
+    {
+      "nom": "Marcel",
+      "numero": "1"
+    },
+    {
+      "nom": "Marlène",
+      "numero": "2"
+    },
+    {
+      "nom": "Normand",
+      "numero": "8"
+    },
+    {
+      "nom": "René",
+      "numero": "9"
+    },
+    {
+      "nom": "Sylvie",
+      "numero": "12"
+    }
+  ],
+  "parties": [
+    {
+      "na": "Marcel",
+      "nb": "Marlène",
+      "pts1": "121",
+      "pts2": "111",
+      "nc": "Louise",
+      "nd": "Manon",
+      "numero": 1
+    },
+    {
+      "na": "Frank",
+      "nb": "Jocelyne",
+      "pts1": "121",
+      "pts2": "81",
+      "nc": "Charles",
+      "nd": "Normand",
+      "numero": 2
+    },
+    {
+      "na": "René",
+      "nb": "Fernand",
+      "pts1": "121",
+      "pts2": "99",
+      "nc": "Josée",
+      "nd": "Line",
+      "numero": 3
+    },
+    {
+      "na": "Sylvie",
+      "nb": "Frank",
+      "pts1": "121",
+      "pts2": "74",
+      "nc": "Marc-André",
+      "nd": "Jocelyne",
+      "numero": 4
+    },
+    {
+      "na": "Normand",
+      "nb": "René",
+      "pts1": "108",
+      "pts2": "121",
+      "nc": "Charles",
+      "nd": "Fernand",
+      "numero": 5
+    },
+    {
+      "na": "Louise",
+      "nb": "Frank",
+      "pts1": "120",
+      "pts2": "121",
+      "nc": "Manon",
+      "nd": "Sylvie",
+      "numero": 6
+    },
+    {
+      "na": "René",
+      "nb": "Marlène",
+      "pts1": "121",
+      "pts2": "88",
+      "nc": "Normand",
+      "nd": "Line",
+      "numero": 7
+    },
+    {
+      "na": "Line",
+      "nb": "Marlène",
+      "pts1": "121",
+      "pts2": "104",
+      "nc": "Marcel",
+      "nd": "Josée",
+      "numero": 8
+    },
+    {
+      "na": "Fernand",
+      "nb": "Marc-André",
+      "pts1": "109",
+      "pts2": "121",
+      "nc": "Jocelyne",
+      "nd": "Charles",
+      "numero": 9
+    },
+    {
+      "na": "Fernand",
+      "nb": "Sylvie",
+      "pts1": "121",
+      "pts2": "70",
+      "nc": "Marc-André",
+      "nd": "Manon",
+      "numero": 10
+    },
+    {
+      "na": "Louise",
+      "nb": "Marlène",
+      "pts1": "95",
+      "pts2": "121",
+      "nc": "Frank",
+      "nd": "René",
+      "numero": 11
+    },
+    {
+      "na": "Normand",
+      "nb": "Josée",
+      "pts1": "121",
+      "pts2": "114",
+      "nc": "Line",
+      "nd": "Charles",
+      "numero": 12
+    },
+    {
+      "na": "Jocelyne",
+      "nb": "Marcel",
+      "pts1": "102",
+      "pts2": "121",
+      "nc": "Josée",
+      "nd": "Charles",
+      "numero": 13
+    },
+    {
+      "na": "Jocelyne",
+      "nb": "Sylvie",
+      "pts1": "107",
+      "pts2": "121",
+      "nc": "Marcel",
+      "nd": "Fernand",
+      "numero": 14
+    },
+    {
+      "na": "Louise",
+      "nb": "Josée",
+      "pts1": "121",
+      "pts2": "100",
+      "nc": "Marlène",
+      "nd": "Normand",
+      "numero": 15
+    },
+    {
+      "na": "Marc-André",
+      "nb": "René",
+      "pts1": "106",
+      "pts2": "121",
+      "nc": "Manon",
+      "nd": "Frank",
+      "numero": 16
+    },
+    {
+      "na": "Jocelyne",
+      "nb": "Frank",
+      "pts1": "121",
+      "pts2": "95",
+      "nc": "Sylvie",
+      "nd": "Manon",
+      "numero": 17
+    },
+    {
+      "na": "Marc-André",
+      "nb": "Fernand",
+      "pts1": "105",
+      "pts2": "121",
+      "nc": "René",
+      "nd": "Charles",
+      "numero": 18
+    },
+    {
+      "na": "Fernand",
+      "nb": "Charles",
+      "pts1": "121",
+      "pts2": "104",
+      "nc": "Line",
+      "nd": "Marcel",
+      "numero": 19
+    },
+    {
+      "na": "Marlène",
+      "nb": "Jocelyne",
+      "pts1": "116",
+      "pts2": "121",
+      "nc": "Normand",
+      "nd": "Frank",
+      "numero": 20
+    },
+    {
+      "na": "Manon",
+      "nb": "René",
+      "pts1": "114",
+      "pts2": "121",
+      "nc": "Sylvie",
+      "nd": "Charles",
+      "numero": 21
+    },
+    {
+      "na": "Marc-André",
+      "nb": "Normand",
+      "pts1": "118",
+      "pts2": "121",
+      "nc": "Fernand",
+      "nd": "Frank",
+      "numero": 22
+    },
+    {
+      "na": "Marcel",
+      "nb": "Josée",
+      "pts1": "83",
+      "pts2": "121",
+      "nc": "Louise",
+      "nd": "Line",
+      "numero": 23
+    },
+    {
+      "na": "Marlène",
+      "nb": "Line",
+      "pts1": "110",
+      "pts2": "121",
+      "nc": "Jocelyne",
+      "nd": "Louise",
+      "numero": 24
+    },
+    {
+      "na": "Marcel",
+      "nb": "Charles",
+      "pts1": "121",
+      "pts2": "84",
+      "nc": "Jocelyne",
+      "nd": "Sylvie",
+      "numero": 25
+    },
+    {
+      "na": "Marc-André",
+      "nb": "Louise",
+      "pts1": "102",
+      "pts2": "121",
+      "nc": "Normand",
+      "nd": "Jocelyne",
+      "numero": 26
+    },
+    {
+      "na": "René",
+      "nb": "Frank",
+      "pts1": "100",
+      "pts2": "121",
+      "nc": "Manon",
+      "nd": "Fernand",
+      "numero": 27
+    }
+  ]
+}

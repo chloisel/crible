@@ -45,6 +45,16 @@ DB_LIGUE   = os.path.join(DB_DIR, "double_skunk_ligue.db")
 
 
 # ──────────────────────────────────────────────
+# CONSTANTES FINANCIÈRES (à ajuster au besoin durant la saison)
+# ──────────────────────────────────────────────
+MONTANT_PRESENCES = 11.00   # $ par présence
+HOTE_MONTANT      = 8.00   # $ par présence, versé à l'hôte (sort de la caisse)
+FOND_MONTANT      = 3.00   # $ par présence, ajouté au fond
+MONTANT_SKUNKS    = 1.0   # $ par skunk, ajouté au fond
+MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
+TEXT_DEPENSE      = "Aucune"  # description des dépenses de la soirée
+
+# ──────────────────────────────────────────────
 # CRÉATION DES TABLES
 # ──────────────────────────────────────────────
 
@@ -209,6 +219,12 @@ def init_db_saison(conn):
             parties_jouees  INTEGER DEFAULT 0,
             total_points    INTEGER DEFAULT 0,
             soirees         INTEGER DEFAULT 0,
+            parties_g       INTEGER DEFAULT 0,
+            parties_p       INTEGER DEFAULT 0,
+            skunks_g        INTEGER DEFAULT 0,
+            skunks_p        INTEGER DEFAULT 0,
+            dbl_skunks_g    INTEGER DEFAULT 0,
+            dbl_skunks_p    INTEGER DEFAULT 0,
             derniere_maj    TEXT
         )
     """)
@@ -659,53 +675,49 @@ def maj_stats(conn, table_stats, table_soirees,
     c = conn.cursor()
     maintenant = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # Collecte stats par joueur (clé = surnom)
-    stats = {}  # surnom -> {points, parties}
-
-    for p in parties:
-        pts1 = p.get("pts1", None)
-        pts2 = p.get("pts2", None)
-        pts1 = int(pts1) if pts1 not in (None, "") else None
-        pts2 = int(pts2) if pts2 not in (None, "") else None
-
-        equipe1 = [j for j in [p.get("na",""), p.get("nb","")] if j]
-        equipe2 = [j for j in [p.get("nc",""), p.get("nd","")] if j]
-
-        for joueur in equipe1:
-            if joueur not in stats:
-                stats[joueur] = {"points": 0, "parties": 0}
-            stats[joueur]["parties"] += 1
-            if pts1 is not None:
-                stats[joueur]["points"] += pts1
-
-        for joueur in equipe2:
-            if joueur not in stats:
-                stats[joueur] = {"points": 0, "parties": 0}
-            stats[joueur]["parties"] += 1
-            if pts2 is not None:
-                stats[joueur]["points"] += pts2
+    # Collecte stats par joueur (clé = surnom) — réutilise le calcul déjà
+    # utilisé pour stats_joueurs (soirée) et stats_a_vie_joueurs
+    stats = calculer_stats_joueurs_soiree(parties)
 
     # Mise à jour stats joueurs (désactivable — ex: stats_a_vie_joueurs a un
     # schéma incompatible en attendant sa propre logique de remplissage)
     if remplir_joueurs:
         for surnom, s in stats.items():
             prenom, nom_famille = lookup.get(surnom, (None, None))
-            c.execute(f"SELECT id, parties_jouees, total_points, soirees FROM {table_stats} WHERE surnom = ?", (surnom,))
+            c.execute(f"""
+                SELECT id, parties_jouees, total_points, soirees,
+                       parties_g, parties_p, skunks_g, skunks_p, dbl_skunks_g, dbl_skunks_p
+                FROM {table_stats} WHERE surnom = ?
+            """, (surnom,))
             row = c.fetchone()
             if row:
-                new_parties = row[1] + s["parties"]
-                new_points  = row[2] + s["points"]
+                new_parties = row[1] + s["nbr_parties"]
+                new_points  = row[2] + s["points_tot"]
                 new_soirees = row[3] + 1
+                new_parties_g = row[4] + s["parties_g"]
+                new_parties_p = row[5] + s["parties_p"]
+                new_skunks_g = row[6] + s["skunks_g"]
+                new_skunks_p = row[7] + s["skunks_p"]
+                new_dbl_skunks_g = row[8] + s["dbl_skunks_g"]
+                new_dbl_skunks_p = row[9] + s["dbl_skunks_p"]
                 c.execute(f"""
                     UPDATE {table_stats}
-                    SET prenom=?, nom=?, parties_jouees=?, total_points=?, soirees=?, derniere_maj=?
+                    SET prenom=?, nom=?, parties_jouees=?, total_points=?, soirees=?,
+                        parties_g=?, parties_p=?, skunks_g=?, skunks_p=?, dbl_skunks_g=?, dbl_skunks_p=?,
+                        derniere_maj=?
                     WHERE surnom=?
-                """, (prenom, nom_famille, new_parties, new_points, new_soirees, maintenant, surnom))
+                """, (prenom, nom_famille, new_parties, new_points, new_soirees,
+                      new_parties_g, new_parties_p, new_skunks_g, new_skunks_p, new_dbl_skunks_g, new_dbl_skunks_p,
+                      maintenant, surnom))
             else:
                 c.execute(f"""
-                    INSERT INTO {table_stats} (surnom, prenom, nom, parties_jouees, total_points, soirees, derniere_maj)
-                    VALUES (?, ?, ?, ?, ?, 1, ?)
-                """, (surnom, prenom, nom_famille, s["parties"], s["points"], maintenant))
+                    INSERT INTO {table_stats}
+                        (surnom, prenom, nom, parties_jouees, total_points, soirees,
+                         parties_g, parties_p, skunks_g, skunks_p, dbl_skunks_g, dbl_skunks_p, derniere_maj)
+                    VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?)
+                """, (surnom, prenom, nom_famille, s["nbr_parties"], s["points_tot"],
+                      s["parties_g"], s["parties_p"], s["skunks_g"], s["skunks_p"], s["dbl_skunks_g"], s["dbl_skunks_p"],
+                      maintenant))
 
     # Enregistrement soirée dans le résumé
     nb_joueurs = len(set(
@@ -1100,6 +1112,39 @@ def maj_stats_saison(conn, saison, soiree_num, date, nb_skunks, texte_skunks, mo
 # ──────────────────────────────────────────────
 # MAIN
 # ──────────────────────────────────────────────
+def maj_finances(conn, soiree_id, saison, nb_presences, nb_skunks):
+    """Calcule et insère la ligne finances de la soirée dans double_skunk_ligue.db.
+    Formule : en_caisse_fin = en_caisse_départ + ajout_fond - dépenses
+    (ajout_fond = fond + skunks ; skunks = nombre de skunks x 2 x MONTANT_SKUNKS)
+    montant_presences et hote_montant sont calculés/stockés à titre informatif
+    seulement — ils n'entrent pas dans le calcul de l'encaisse."""
+    c = conn.cursor()
+
+    c.execute("SELECT en_caisse_fin FROM finances ORDER BY id DESC LIMIT 1")
+    row = c.fetchone()
+    en_caisse_depart = row[0] if row and row[0] is not None else 0.0
+
+    montant_presences = round(nb_presences * MONTANT_PRESENCES, 2)
+    hote_montant = round(nb_presences * HOTE_MONTANT, 2)
+    fond_montant = round(nb_presences * FOND_MONTANT, 2)
+    montant_skunks = round((nb_skunks * 2) * MONTANT_SKUNKS, 2)
+    ajout_fond = round(fond_montant + montant_skunks, 2)
+    montant_depenses = MONTANT_DEPENSES
+
+    en_caisse_fin = round(en_caisse_depart + ajout_fond - montant_depenses, 2)
+
+    c.execute("""
+        INSERT INTO finances
+            (id_soiree, saison, en_caisse_départ, en_caisse_fin, nbr_presences, montant_presences,
+             hote_montant, fond_montant, nbr_skunks, montant_skunks, ajout_fond, montant_depenses, text_depenses)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (soiree_id, saison, en_caisse_depart, en_caisse_fin, nb_presences, montant_presences,
+          hote_montant, fond_montant, nb_skunks, montant_skunks, ajout_fond, montant_depenses, TEXT_DEPENSE))
+
+    conn.commit()
+    print(f"  💰 Finances mises à jour — encaisse : {en_caisse_depart:.2f} $ → {en_caisse_fin:.2f} $")
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python double_skunk_import.py <fichier.json>")
@@ -1126,7 +1171,6 @@ def main():
     print(f"👤 Base ligue   → {DB_LIGUE}")
     conn_l = sqlite3.connect(DB_LIGUE)
     init_db_ligue(conn_l)
-    conn_l.close()
 
     # Recherche prenom/nom par surnom (utilisée par toutes les autres DB)
     lookup = charger_lookup_profiles()
@@ -1138,6 +1182,10 @@ def main():
     soiree_id, soiree_num, soiree_vie_num, saison, date, endroit, parties, presence = \
         importer_soiree(data, conn_s, lookup)
     conn_s.close()
+
+    # Finances de la soirée (DB LIGUE)
+    maj_finances(conn_l, soiree_id, saison, nb_presences=len(presence), nb_skunks=compter_skunks_soiree(parties))
+    conn_l.close()
 
     # ── DB SAISON ──
     print(f"📊 Base saison  → {DB_SAISON}")

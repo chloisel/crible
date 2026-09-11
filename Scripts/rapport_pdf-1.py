@@ -324,23 +324,20 @@ def charger_finances_soiree(soiree_id):
 # ──────────────────────────────────────────────
 # CONSTRUCTION DU PDF
 # ──────────────────────────────────────────────
-def _table_style(nb_lignes, ligne_debut_absents=None, ligne_total=None, compact=False):
-    padding = 2 if compact else 5
-    taille_entete = 8 if compact else 10
-    taille_corps = 7.5 if compact else 9
+def _table_style(nb_lignes, ligne_debut_absents=None, ligne_total=None):
     style = [
         ("BACKGROUND", (0, 0), (-1, 0), COULEUR_ENTETE),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTSIZE", (0, 0), (-1, 0), taille_entete),
+        ("FONTSIZE", (0, 0), (-1, 0), 10),
         ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
-        ("FONTSIZE", (0, 1), (-1, -1), taille_corps),
+        ("FONTSIZE", (0, 1), (-1, -1), 9),
         ("ALIGN", (1, 0), (-1, -1), "CENTER"),
         ("ALIGN", (0, 0), (0, -1), "LEFT"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
         ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cccccc")),
-        ("TOPPADDING", (0, 0), (-1, -1), padding),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), padding),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
     ]
     for i in range(1, nb_lignes + 1):
         if i % 2 == 0:
@@ -540,11 +537,11 @@ def _page_resume(story, styles, soiree_info, resume):
 def _page_stats_saison(story, styles, saison_label, top8, records, anniversaires, finances, date_precedente, date_actuelle):
     story.append(Paragraph('LIGUE DE CRIB "DOUBLE-SKUNK"', styles["TitreLigue"]))
     story.append(Paragraph(f"Statistiques de la saison {saison_label}", styles["SousTitreCentre"]))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 16))
 
     # ── Top 8 des plus bas skunks de la saison ──
-    story.append(Paragraph("Les 8 plus beaux skunks de la saison", styles["SousTitrePage4"]))
-    story.append(Spacer(1, 3))
+    story.append(Paragraph("Les 8 plus beaux skunks de la saison", styles["SousTitre"]))
+    story.append(Spacer(1, 6))
 
     entete_perdus = f"{VISAGE_TRISTE} Perdus par {VISAGE_TRISTE}"
     entete_gagnes = f"{VISAGE_CONTENT} Gagnés par {VISAGE_CONTENT}"
@@ -557,14 +554,14 @@ def _page_stats_saison(story, styles, saison_label, top8, records, anniversaires
 
     largeurs = [1.3*cm, 1.3*cm, 3*cm, 4.2*cm, 4.2*cm]
     table = Table(data, colWidths=largeurs, repeatRows=1)
-    table.setStyle(_table_style(len(data) - 1, compact=True))
-    table.setStyle(TableStyle([("FONTNAME", (0, 0), (-1, 0), POLICE_EMOJI), ("FONTSIZE", (0, 0), (-1, 0), 8)]))
+    table.setStyle(_table_style(len(data) - 1))
+    table.setStyle(TableStyle([("FONTNAME", (0, 0), (-1, 0), POLICE_EMOJI)]))
     story.append(table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 20))
 
     # ── Records de soirée de la saison ──
-    story.append(Paragraph("Records de soirée de la saison", styles["SousTitrePage4"]))
-    story.append(Spacer(1, 3))
+    story.append(Paragraph("Records de soirée de la saison", styles["SousTitre"]))
+    story.append(Spacer(1, 6))
 
     if records is None:
         story.append(Paragraph("Aucun record disponible pour cette saison.", styles["Normal"]))
@@ -579,7 +576,7 @@ def _page_stats_saison(story, styles, saison_label, top8, records, anniversaires
             ("Plus haute moyenne générale pour une soirée", f"{records['haute_moy_soiree_nbr']:.2f}" if records["haute_moy_soiree_nbr"] is not None else "—",
              records["haute_moy_soiree_text"] or "—", records["haute_moy_date"]),
         ]
-        style_cell = ParagraphStyle("CelluleTable", parent=styles["Normal"], fontSize=7.5, leading=9)
+        style_cell = ParagraphStyle("CelluleTable", parent=styles["Normal"], fontSize=9, leading=11)
         data = [["Statistique", "Total", "Détails", "Date"]]
         for label, total, details, date_rec in lignes:
             dates_affichees = ", ".join(formater_date_courte(d) for d in date_rec.split(",")) if date_rec else "—"
@@ -587,21 +584,21 @@ def _page_stats_saison(story, styles, saison_label, top8, records, anniversaires
 
         largeurs = [5.5*cm, 1.8*cm, 5.5*cm, 3.5*cm]
         table = Table(data, colWidths=largeurs, repeatRows=1)
-        table.setStyle(_table_style(len(lignes), compact=True))
+        table.setStyle(_table_style(len(lignes)))
         story.append(table)
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 20))
 
     # ── Recettes et dépenses de la saison ──
-    story.append(Paragraph(f"Recettes et dépenses de la {EDITION_SAISON} saison", styles["SousTitrePage4"]))
+    story.append(Paragraph(f"Recettes et dépenses de la {EDITION_SAISON} saison", styles["SousTitre"]))
     story.append(Paragraph(f"au {formater_date_courte(date_actuelle)}", styles["Meta"]))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 6))
 
     if finances is None:
         story.append(Paragraph("Aucune donnée financière pour cette soirée.", styles["Normal"]))
     else:
         style_entete = ParagraphStyle("EnteteFinances", parent=styles["Normal"],
-                                       fontSize=7, leading=8.5, textColor=colors.white, alignment=1)
+                                       fontSize=8, leading=10, textColor=colors.white, alignment=1)
         libelle_prec = f"Encaisse au {formater_date_courte(date_precedente)}" if date_precedente else "Encaisse au départ"
         libelle_actuel = f"En caisse au {formater_date_courte(date_actuelle)}"
         libelle_depenses = f"Dépenses ({finances['text_depenses']})"
@@ -624,28 +621,22 @@ def _page_stats_saison(story, styles, saison_label, top8, records, anniversaires
         data = [entetes, valeurs]
         largeurs = [2.2*cm] * 8
         table = Table(data, colWidths=largeurs, repeatRows=1)
-        table.setStyle(_table_style(1, compact=True))
+        table.setStyle(_table_style(1))
         story.append(table)
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 20))
 
-    # ── Anniversaires du mois courant (2 paires par ligne pour limiter la hauteur) ──
+    # ── Anniversaires du mois courant ──
     mois_nom = MOIS_FR[datetime.now().month - 1].capitalize()
-    story.append(Paragraph(f"Anniversaires de {mois_nom}", styles["SousTitrePage4"]))
-    story.append(Spacer(1, 3))
+    story.append(Paragraph(f"Anniversaires de {mois_nom}", styles["SousTitre"]))
+    story.append(Spacer(1, 6))
     if anniversaires:
-        entetes = ["Joueur", "Jour", "Joueur", "Jour"]
-        data = [entetes]
-        for i in range(0, len(anniversaires), 2):
-            gauche = anniversaires[i]
-            droite = anniversaires[i + 1] if i + 1 < len(anniversaires) else None
-            data.append([
-                gauche["nom_complet"], str(gauche["jour"]),
-                droite["nom_complet"] if droite else "", str(droite["jour"]) if droite else "",
-            ])
-        largeurs = [5*cm, 1.7*cm, 5*cm, 1.7*cm]
+        data = [["Joueur", "Jour"]]
+        for a in anniversaires:
+            data.append([a["nom_complet"], str(a["jour"])])
+        largeurs = [8*cm, 3*cm]
         table = Table(data, colWidths=largeurs, repeatRows=1)
-        table.setStyle(_table_style(len(data) - 1, compact=True))
+        table.setStyle(_table_style(len(anniversaires)))
         story.append(table)
     else:
         story.append(Paragraph("Aucun anniversaire ce mois-ci.", styles["Normal"]))
@@ -679,8 +670,6 @@ def generer_rapport(date_soiree, chemin_sortie=None):
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle("TitreLigue", parent=styles["Title"], fontSize=18, spaceAfter=2))
     styles.add(ParagraphStyle("SousTitre", parent=styles["Heading2"], fontSize=13, textColor=COULEUR_ENTETE))
-    styles.add(ParagraphStyle("SousTitrePage4", parent=styles["Heading2"], fontSize=10.5,
-                               textColor=COULEUR_ENTETE, spaceAfter=0, spaceBefore=0))
     styles.add(ParagraphStyle("SousTitreCentre", parent=styles["Heading2"], fontSize=12,
                                textColor=COULEUR_ENTETE, alignment=1))
     styles.add(ParagraphStyle("Meta", parent=styles["Normal"], fontSize=10, textColor=colors.HexColor("#555555")))
