@@ -1,0 +1,341 @@
+﻿{
+  "ligue": "Ligue de Crible Double-SKUNK",
+  "fondee": "1967-11-05",
+  "soireeNum": "1",
+  "soireeVie": "714",
+  "saison": "26-27",
+  "date": "2026-09-18",
+  "endroit": "Marlène et Marcel",
+  "evenements": [
+    "Main de 21 charles",
+    "Main 24 Sylvie",
+    "Main 24 Josee",
+    "Main 20 Normand",
+    "Main 21 Jocelyne"
+  ],
+  "prochaineRencontre": {
+    "chez": "Carole et Michel",
+    "date": "2026-10-16"
+  },
+  "exportedAt": "2026-10-02T16:27:30.941Z",
+  "presence": [
+    {
+      "nom": "Carole",
+      "numero": "7"
+    },
+    {
+      "nom": "Charles",
+      "numero": "2"
+    },
+    {
+      "nom": "Fernand",
+      "numero": "8"
+    },
+    {
+      "nom": "Frank",
+      "numero": "11"
+    },
+    {
+      "nom": "Jocelyne",
+      "numero": "9"
+    },
+    {
+      "nom": "Josée",
+      "numero": "12"
+    },
+    {
+      "nom": "Line",
+      "numero": "1"
+    },
+    {
+      "nom": "Louise",
+      "numero": "13"
+    },
+    {
+      "nom": "Manon",
+      "numero": "15"
+    },
+    {
+      "nom": "Marcel",
+      "numero": "10"
+    },
+    {
+      "nom": "Marlène",
+      "numero": "14"
+    },
+    {
+      "nom": "Michel",
+      "numero": "4"
+    },
+    {
+      "nom": "Normand",
+      "numero": "16"
+    },
+    {
+      "nom": "Paul",
+      "numero": "15"
+    },
+    {
+      "nom": "Sylvie",
+      "numero": "5"
+    },
+    {
+      "nom": "Yves",
+      "numero": "3"
+    }
+  ],
+  "parties": [
+    {
+      "na": "Line",
+      "nb": "Charles",
+      "pts1": "121",
+      "pts2": "111",
+      "nc": "Yves",
+      "nd": "Michel",
+      "numero": 1
+    },
+    {
+      "na": "Sylvie",
+      "nb": "Carole",
+      "pts1": "87",
+      "pts2": "121",
+      "nc": "Fernand",
+      "nd": "Jocelyne",
+      "numero": 2
+    },
+    {
+      "na": "Marcel",
+      "nb": "Frank",
+      "pts1": "98",
+      "pts2": "121",
+      "nc": "Josée",
+      "nd": "Louise",
+      "numero": 3
+    },
+    {
+      "na": "Marlène",
+      "nb": "Manon",
+      "pts1": "111",
+      "pts2": "121",
+      "nc": "Paul",
+      "nd": "Normand",
+      "numero": 4
+    },
+    {
+      "na": "Charles",
+      "nb": "Marlène",
+      "pts1": "121",
+      "pts2": "109",
+      "nc": "Manon",
+      "nd": "Line",
+      "numero": 5
+    },
+    {
+      "na": "Fernand",
+      "nb": "Yves",
+      "pts1": "121",
+      "pts2": "96",
+      "nc": "Jocelyne",
+      "nd": "Michel",
+      "numero": 6
+    },
+    {
+      "na": "Carole",
+      "nb": "Louise",
+      "pts1": "88",
+      "pts2": "121",
+      "nc": "Sylvie",
+      "nd": "Josée",
+      "numero": 7
+    },
+    {
+      "na": "Frank",
+      "nb": "Paul",
+      "pts1": "116",
+      "pts2": "121",
+      "nc": "Normand",
+      "nd": "Marcel",
+      "numero": 8
+    },
+    {
+      "na": "Charles",
+      "nb": "Frank",
+      "pts1": "116",
+      "pts2": "121",
+      "nc": "Marlène",
+      "nd": "Paul",
+      "numero": 9
+    },
+    {
+      "na": "Yves",
+      "nb": "Manon",
+      "pts1": "121",
+      "pts2": "97",
+      "nc": "Fernand",
+      "nd": "Line",
+      "numero": 10
+    },
+    {
+      "na": "Jocelyne",
+      "nb": "Josée",
+      "pts1": "121",
+      "pts2": "119",
+      "nc": "Michel",
+      "nd": "Sylvie",
+      "numero": 11
+    },
+    {
+      "na": "Carole",
+      "nb": "Marcel",
+      "pts1": "108",
+      "pts2": "121",
+      "nc": "Louise",
+      "nd": "Normand",
+      "numero": 12
+    },
+    {
+      "na": "Charles",
+      "nb": "Manon",
+      "pts1": "121",
+      "pts2": "95",
+      "nc": "Frank",
+      "nd": "Yves",
+      "numero": 13
+    },
+    {
+      "na": "Jocelyne",
+      "nb": "Line",
+      "pts1": "118",
+      "pts2": "121",
+      "nc": "Fernand",
+      "nd": "Josée",
+      "numero": 14
+    },
+    {
+      "na": "Normand",
+      "nb": "Sylvie",
+      "pts1": "121",
+      "pts2": "111",
+      "nc": "Michel",
+      "nd": "Louise",
+      "numero": 15
+    },
+    {
+      "na": "Marcel",
+      "nb": "Paul",
+      "pts1": "121",
+      "pts2": "118",
+      "nc": "Marlène",
+      "nd": "Carole",
+      "numero": 16
+    },
+    {
+      "na": "Carole",
+      "nb": "Charles",
+      "pts1": "74",
+      "pts2": "121",
+      "nc": "Manon",
+      "nd": "Marlène",
+      "numero": 17
+    },
+    {
+      "na": "Louise",
+      "nb": "Marcel",
+      "pts1": "113",
+      "pts2": "121",
+      "nc": "Michel",
+      "nd": "Paul",
+      "numero": 18
+    },
+    {
+      "na": "Normand",
+      "nb": "Line",
+      "pts1": "121",
+      "pts2": "107",
+      "nc": "Jocelyne",
+      "nd": "Sylvie",
+      "numero": 19
+    },
+    {
+      "na": "Josée",
+      "nb": "Frank",
+      "pts1": "90",
+      "pts2": "121",
+      "nc": "Fernand",
+      "nd": "Yves",
+      "numero": 20
+    },
+    {
+      "na": "Charles",
+      "nb": "Yves",
+      "pts1": "99",
+      "pts2": "121",
+      "nc": "Carole",
+      "nd": "Fernand",
+      "numero": 21
+    },
+    {
+      "na": "Paul",
+      "nb": "Jocelyne",
+      "pts1": "121",
+      "pts2": "116",
+      "nc": "Michel",
+      "nd": "Sylvie",
+      "numero": 22
+    },
+    {
+      "na": "Manon",
+      "nb": "Louise",
+      "pts1": "121",
+      "pts2": "104",
+      "nc": "Marcel",
+      "nd": "Marlène",
+      "numero": 23
+    },
+    {
+      "na": "Frank",
+      "nb": "Line",
+      "pts1": "121",
+      "pts2": "112",
+      "nc": "Normand",
+      "nd": "Josée",
+      "numero": 24
+    },
+    {
+      "na": "Paul",
+      "nb": "Normand",
+      "pts1": "121",
+      "pts2": "114",
+      "nc": "Josée",
+      "nd": "Jocelyne",
+      "numero": 25
+    },
+    {
+      "na": "Louise",
+      "nb": "Michel",
+      "pts1": "121",
+      "pts2": "116",
+      "nc": "Manon",
+      "nd": "Sylvie",
+      "numero": 26
+    },
+    {
+      "na": "Carole",
+      "nb": "Marlène",
+      "pts1": "93",
+      "pts2": "121",
+      "nc": "Fernand",
+      "nd": "Marcel",
+      "numero": 27
+    },
+    {
+      "na": "Charles",
+      "nb": "Frank",
+      "pts1": "121",
+      "pts2": "119",
+      "nc": "Line",
+      "nd": "Yves",
+      "numero": 28
+    }
+  ]
+}

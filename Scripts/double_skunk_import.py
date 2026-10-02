@@ -47,10 +47,10 @@ DB_LIGUE   = os.path.join(DB_DIR, "double_skunk_ligue.db")
 # ──────────────────────────────────────────────
 # CONSTANTES FINANCIÈRES (à ajuster au besoin durant la saison)
 # ──────────────────────────────────────────────
-MONTANT_PRESENCES = 11.00   # $ par présence
-HOTE_MONTANT      = 8.00   # $ par présence, versé à l'hôte (sort de la caisse)
-FOND_MONTANT      = 3.00   # $ par présence, ajouté au fond
-MONTANT_SKUNKS    = 1.0   # $ par skunk, ajouté au fond
+MONTANT_PRESENCES = 15.00   # $ par présence
+HOTE_MONTANT      = 10.00   # $ par présence, versé à l'hôte (sort de la caisse)
+FOND_MONTANT      = 5.00   # $ par présence, ajouté au fond
+MONTANT_SKUNKS    = 2.0   # $ par skunk, ajouté au fond
 MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
 TEXT_DEPENSE      = "Aucune"  # description des dépenses de la soirée
 
