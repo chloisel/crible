@@ -47,10 +47,10 @@ DB_LIGUE   = os.path.join(DB_DIR, "double_skunk_ligue.db")
 # ──────────────────────────────────────────────
 # CONSTANTES FINANCIÈRES (à ajuster au besoin durant la saison)
 # ──────────────────────────────────────────────
-MONTANT_PRESENCES = 11.00   # $ par présence
-HOTE_MONTANT      = 8.00   # $ par présence, versé à l'hôte (sort de la caisse)
-FOND_MONTANT      = 3.00   # $ par présence, ajouté au fond
-MONTANT_SKUNKS    = 1.0   # $ par skunk, ajouté au fond
+MONTANT_PRESENCES = 15.00   # $ par présence
+HOTE_MONTANT      = 10.00   # $ par présence, versé à l'hôte (sort de la caisse)
+FOND_MONTANT      = 5.00   # $ par présence, ajouté au fond
+MONTANT_SKUNKS    = 2.0   # $ par skunk, ajouté au fond
 MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
 TEXT_DEPENSE      = "Aucune"  # description des dépenses de la soirée
 
@@ -542,18 +542,6 @@ def importer_soiree(data, conn, lookup):
     prochaine_chez = prochaine.get("chez", "")
     prochaine_date = prochaine.get("date", "")
     importe_le     = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    # Supprime la soirée existante si même numéro (ré-import)
-    c.execute("SELECT id FROM soirees WHERE soiree_num = ?", (soiree_num,))
-    row = c.fetchone()
-    if row:
-        old_id = row[0]
-        c.execute("DELETE FROM parties WHERE soiree_id = ?", (old_id,))
-        c.execute("DELETE FROM presence WHERE soiree_id = ?", (old_id,))
-        c.execute("DELETE FROM stats_joueurs WHERE soiree_id = ?", (old_id,))
-        c.execute("DELETE FROM stats_soiree WHERE soiree_id = ?", (old_id,))
-        c.execute("DELETE FROM soirees WHERE id = ?", (old_id,))
-        print(f"  ⚠️  Soirée #{soiree_num} déjà présente — remplacée.")
 
     c.execute("""
         INSERT INTO soirees
@@ -1145,6 +1133,24 @@ def maj_finances(conn, soiree_id, saison, nb_presences, nb_skunks):
     print(f"  💰 Finances mises à jour — encaisse : {en_caisse_depart:.2f} $ → {en_caisse_fin:.2f} $")
 
 
+def soiree_deja_importee(soiree_num):
+    """Retourne True si une soirée avec ce soiree_num existe déjà dans
+    double_skunk_soiree.db. Ne fait aucune modification — lecture seule."""
+    if not os.path.exists(DB_SOIREE):
+        return False
+    conn = sqlite3.connect(DB_SOIREE)
+    c = conn.cursor()
+    existe_table = c.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='soirees'"
+    ).fetchone()
+    if not existe_table:
+        conn.close()
+        return False
+    row = c.execute("SELECT id FROM soirees WHERE soiree_num = ?", (soiree_num,)).fetchone()
+    conn.close()
+    return row is not None
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python double_skunk_import.py <fichier.json>")
@@ -1164,6 +1170,15 @@ def main():
 
     parties  = data.get("parties", [])
     presence = data.get("presence", [])
+
+    soiree_num = int(data.get("soireeNum", 0) or 0)
+    if soiree_deja_importee(soiree_num):
+        print()
+        print(f"⚠️  ATTENTION : la soirée #{soiree_num} existe déjà dans {DB_SOIREE}.")
+        print("    Aucune donnée n'a été modifiée. Import annulé.")
+        print("    (Si tu veux vraiment remplacer cette soirée, supprime-la d'abord manuellement.)")
+        print()
+        sys.exit(1)
 
     afficher_rapport(data, parties, presence)
 
