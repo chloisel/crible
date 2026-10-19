@@ -51,8 +51,8 @@ MONTANT_PRESENCES = 15.00   # $ par présence
 HOTE_MONTANT      = 10.00   # $ par présence, versé à l'hôte (sort de la caisse)
 FOND_MONTANT      = 5.00   # $ par présence, ajouté au fond
 MONTANT_SKUNKS    = 2.0   # $ par skunk, ajouté au fond
-MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
-TEXT_DEPENSE      = "Aucune"  # description des dépenses de la soirée
+MONTANT_DEPENSES  = 9.50   # $ de dépenses pour la soirée
+TEXT_DEPENSE      = "Papeterie"    # description des dépenses de la soirée
 
 # ──────────────────────────────────────────────
 # CRÉATION DES TABLES
