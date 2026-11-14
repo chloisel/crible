@@ -50,7 +50,7 @@ DB_LIGUE   = os.path.join(DB_DIR, "double_skunk_ligue.db")
 MONTANT_PRESENCES = 15.00   # $ par présence
 HOTE_MONTANT      = 10.00   # $ par présence, versé à l'hôte (sort de la caisse)
 FOND_MONTANT      = MONTANT_PRESENCES - HOTE_MONTANT   # $ par présence, ajouté au fond
-MONTANT_SKUNKS    = 2.0   # $ par skunk, ajouté au fond
+MONTANT_SKUNKS    = 2.00   # $ par skunk, ajouté au fond
 MONTANT_DEPENSES  = 0.00   # $ de dépenses pour la soirée
 TEXT_DEPENSE      = ""    # description des dépenses de la soirée
 
